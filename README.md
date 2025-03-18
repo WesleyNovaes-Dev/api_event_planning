@@ -44,7 +44,7 @@ Principais serviços utilizados:
 ### Pré-requisitos
 
 Certifique-se de ter os seguintes softwares instalados:
-- Java 17+
+- Java 21+
 - Maven
 - Docker (se aplicável)
 - Banco de dados configurado
