@@ -6,7 +6,7 @@ Event Planning é uma API projetada para gerenciar o planejamento de eventos, pe
 
 Nosso projeto busca solucionar [problema ou necessidade] através de [solução proposta]. O fluxo de funcionamento é representado pela imagem abaixo:
 
-![Modelo de Negócio](https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/imagens/modelo_negocio.png)
+
 
 ## 🏗 Arquitetura e Entidades do Java
 
