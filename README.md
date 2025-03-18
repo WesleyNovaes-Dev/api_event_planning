@@ -4,10 +4,6 @@ Event Planning é uma API projetada para gerenciar o planejamento de eventos, pe
 
 ## 📖 Visão Geral do Modelo de Negócio
 
-Nosso projeto busca solucionar [problema ou necessidade] através de [solução proposta]. O fluxo de funcionamento é representado pela imagem abaixo:
-
-
-
 ## 🏗 Arquitetura e Entidades do Java
 
 A aplicação utiliza Java para a camada de backend, com as seguintes entidades principais:
