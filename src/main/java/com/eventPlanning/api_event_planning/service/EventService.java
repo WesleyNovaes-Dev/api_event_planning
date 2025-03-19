@@ -1,4 +1,4 @@
-package com.eventPlanning.api_event_planning.domain.service;
+package com.eventPlanning.api_event_planning.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.eventPlanning.api_event_planning.domain.event.Event;
@@ -21,14 +21,19 @@ public class EventService {
     @Value("${aws.bucket.name}")
     private String bucketName;
 
+    // Injeção do AmazonS3 diretamente, sem a necessidade do @Lazy
+    private final AmazonS3 s3Client;
 
+    // Construtor para a injeção do AmazonS3
     @Autowired
-    private AmazonS3 s3Client;
+    public EventService(AmazonS3 s3Client) {
+        this.s3Client = s3Client;
+    }
 
-    public Event createEvent(EventRequestDTO data){
-        String imgUrl = null;
+    public Event createEvent(EventRequestDTO data) {
+        String imgUrl = "";
 
-        if(data.image() != null){
+        if (data.image() != null) {
             imgUrl = this.uploadImg(data.image());
         }
 
@@ -37,33 +42,31 @@ public class EventService {
         newEvent.setDescription(data.description());
         newEvent.setEventUrl(data.eventUrl());
         newEvent.setDate(new Date(data.date()));
-         newEvent.setImgUrl(imgUrl);
+        newEvent.setImgUrl(imgUrl);
 
-         return newEvent;
+        return newEvent;
     }
 
-    private String uploadImg(MultipartFile multipartFile){
+    private String uploadImg(MultipartFile multipartFile) {
         String filename = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
 
-        try{
+        try {
             File file = this.convertMultipartToFile(multipartFile);
             s3Client.putObject(bucketName, filename, file);
             file.delete();
             return s3Client.getUrl(bucketName, filename).toString();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao subir arquivo");
             return null;
         }
     }
 
-    private File convertMultipartToFile(MultipartFile multipartFile) throws IOException
-    {
+    private File convertMultipartToFile(MultipartFile multipartFile) throws IOException {
         File ConvFile = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         FileOutputStream fos = new FileOutputStream(ConvFile);
         fos.write(multipartFile.getBytes());
         fos.close();
         return ConvFile;
     }
-
 }

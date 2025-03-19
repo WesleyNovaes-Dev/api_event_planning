@@ -1,4 +1,4 @@
-package com.eventPlanning.api_event_planning.domain.config;
+package com.eventPlanning.api_event_planning.config;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -12,9 +12,9 @@ public class AWSConfig {
     @Value("${aws.region}")
     private String awsRegion;
 
+    // Atualização do método para criar o S3 sem depender de injeção circular
     @Bean
-    public AmazonS3 createS3Instance(AmazonS3 amazonS3)
-    {
+    public AmazonS3 createS3Instance() {
         return AmazonS3ClientBuilder
                 .standard()
                 .withRegion(awsRegion)
