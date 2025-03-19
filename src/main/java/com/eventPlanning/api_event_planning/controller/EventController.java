@@ -21,15 +21,16 @@ public class EventController {
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<Event> create(@RequestParam("title") String title,
                                         @RequestParam(value = "description", required = false) String description,
+                                        @RequestParam("date") Long date,
                                         @RequestParam("city") String city,
                                         @RequestParam("state") String state,
                                         @RequestParam("remote") Boolean remote,
                                         @RequestParam("eventUrl") String eventUrl,
-                                        @RequestParam(value = "image", required = false) MultipartFile image)
-    {
+                                        @RequestParam(value = "image", required = false) MultipartFile image){
+        // erro -> EventRequestDTO eventRequestDTO = new EventRequestDTO(title, description, System.currentTimeMillis(), city, state, remote, eventUrl, image);
         EventRequestDTO eventRequestDTO = new EventRequestDTO(title, description, date, city, state, remote, eventUrl, image);
         Event event = eventService.createEvent(eventRequestDTO);
         return ResponseEntity.ok(event);
-    }
 
+    }
 }
