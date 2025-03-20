@@ -19,11 +19,10 @@ public class Address {
     @GeneratedValue
     private UUID id;
 
-    private String code;
-    private Integer discount;
-    private Date valid;
+    private String city;
+    private String uf;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "event_id")
     private Event event;
 }
